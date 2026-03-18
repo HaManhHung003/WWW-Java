@@ -1,0 +1,29 @@
+<form th:action="@{/books}" method="get">
+    <input type="text" name="keyword" placeholder="Tìm tên/tác giả...">
+    <select name="categoryId">
+        <option value="">Tất cả loại</option>
+        <option th:each="c : ${categories}" th:value="${c.id}" th:text="${c.name}"></option>
+    </select>
+    <button type="submit">Lọc</button>
+</form>
+
+<table border="1">
+    <tr>
+        <th>Tiêu đề</th>
+        <th>Tác giả</th>
+        <th>Giá</th>
+        <th>Loại</th>
+        <th>Hành động</th>
+    </tr>
+    <tr th:each="b : ${books}">
+        <td th:text="${b.title}"></td>
+        <td th:text="${b.author}"></td>
+        <td th:text="${b.price}"></td>
+        <td th:text="${b.category?.name}"></td>
+        <td>
+            <a th:href="@{/books/edit/{id}(id=${b.id})}">Sửa</a>
+            <a th:href="@{/books/delete/{id}(id=${b.id})}" onclick="return confirm('Xóa?')">Xóa</a>
+        </td>
+    </tr>
+</table>
+<button><a th:href="@{/books/add}">Thêm sách mới</a></button>
