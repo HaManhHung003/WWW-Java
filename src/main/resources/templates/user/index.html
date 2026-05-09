@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{common/layout :: html(content=~{::section})}">
+<body>
+    <section>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+            <h1>Discover Your Next Read</h1>
+            <form th:action="@{/}" method="get" style="display: flex; gap: 0.5rem;">
+                <input type="text" name="search" placeholder="Search by title..." class="form-group" style="margin: 0; min-width: 300px; padding: 0.5rem;">
+                <button type="submit" class="btn btn-primary">Search</button>
+            </form>
+        </div>
+
+        <div th:if="${param.success}" style="background: #dcfce7; color: #166534; padding: 1rem; border-radius: 0.5rem; margin-bottom: 1rem;">
+            Purchase successful! Your order is being processed.
+        </div>
+
+        <div class="book-grid">
+            <div th:each="book : ${books}" class="book-card">
+                <img th:src="${book.coverImage != null ? book.coverImage : 'https://images.unsplash.com/photo-1543005157-865a50d459c7?q=80&w=1000'}" alt="Book Cover">
+                <div class="book-info">
+                    <h3 th:text="${book.title}">Book Title</h3>
+                    <p th:text="${book.author}" style="color: #64748b; margin-bottom: 1rem;">Author Name</p>
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <span class="price" th:text="${'$' + book.price}">$19.99</span>
+                        <form th:action="@{/purchase}" method="post">
+                            <input type="hidden" name="bookId" th:value="${book.id}">
+                            <input type="hidden" name="quantity" value="1">
+                            <button type="submit" class="btn btn-primary">Buy Now</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{common/layout :: html(content=~{::section})}">
+<body>
+    <section>
+        <h1 style="margin-bottom: 2rem;">Admin Dashboard</h1>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem;">
+            <!-- Books Stat -->
+            <div style="background: white; padding: 2rem; border-radius: 1rem; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); border-left: 5px solid var(--primary);">
+                <h3 style="color: var(--secondary); font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.05em;">Total Books</h3>
+                <p style="font-size: 2.5rem; font-weight: 700; margin-top: 0.5rem;" th:text="${totalBooks}">0</p>
+                <a th:href="@{/admin/books}" style="color: var(--primary); font-size: 0.875rem; text-decoration: none; display: block; margin-top: 1rem;">View Inventory →</a>
+            </div>
+
+            <!-- Orders Stat -->
+            <div style="background: white; padding: 2rem; border-radius: 1rem; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); border-left: 5px solid var(--success);">
+                <h3 style="color: var(--secondary); font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.05em;">Total Orders</h3>
+                <p style="font-size: 2.5rem; font-weight: 700; margin-top: 0.5rem;" th:text="${totalOrders}">0</p>
+                <a th:href="@{/admin/orders}" style="color: var(--primary); font-size: 0.875rem; text-decoration: none; display: block; margin-top: 1rem;">View All Orders →</a>
+            </div>
+        </div>
+
+        <div style="margin-top: 3rem; background: white; padding: 2rem; border-radius: 1rem; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);">
+            <h3>Quick Actions</h3>
+            <div style="display: flex; gap: 1rem; margin-top: 1rem;">
+                <a th:href="@{/admin/books/add}" class="btn btn-primary">Add New Book</a>
+                <a th:href="@{/}" class="btn" style="background: #e2e8f0; color: #475569;">Go to Bookstore Homepage</a>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{common/layout :: html(content=~{::section})}">
+<body>
+    <section>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+            <h1>Manage Orders</h1>
+            <a th:href="@{/admin}" class="btn" style="background: #e2e8f0; color: #475569;">Back to Dashboard</a>
+        </div>
+
+        <table style="width: 100%; border-collapse: collapse; background: white; border-radius: 1rem; overflow: hidden; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);">
+            <thead style="background: #f1f5f9;">
+                <tr>
+                    <th style="padding: 1rem; text-align: left;">Order ID</th>
+                    <th style="padding: 1rem; text-align: left;">Customer</th>
+                    <th style="padding: 1rem; text-align: left;">Date</th>
+                    <th style="padding: 1rem; text-align: left;">Total</th>
+                    <th style="padding: 1rem; text-align: center;">Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="order : ${orders}" style="border-top: 1px solid #e2e8f0;">
+                    <td style="padding: 1rem;" th:text="${'#' + order.id}">#1</td>
+                    <td style="padding: 1rem;" th:text="${order.user.username}">Username</td>
+                    <td style="padding: 1rem;" th:text="${#temporals.format(order.orderDate, 'yyyy-MM-dd HH:mm')}">2026-05-09 10:00</td>
+                    <td style="padding: 1rem;" th:text="${'$' + #numbers.formatDecimal(order.totalAmount, 1, 2)}">$19.99</td>
+                    <td style="padding: 1rem; text-align: center;">
+                        <span style="background: #dcfce7; color: #166534; padding: 0.25rem 0.75rem; border-radius: 1rem; font-size: 0.875rem;" th:text="${order.status}">COMPLETED</span>
+                    </td>
+                </tr>
+                <tr th:if="${#lists.isEmpty(orders)}">
+                    <td colspan="5" style="padding: 2rem; text-align: center; color: #64748b;">No orders found.</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+</body>
+</html>

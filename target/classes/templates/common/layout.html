@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" th:fragment="html(content)">
+<head>
+    <meta charset="UTF-8">
+    <title>Bookstore</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <a th:href="@{/}" style="font-size: 1.5rem; font-weight: 700; margin: 0;">📚 BookStore</a>
+            </div>
+            <div class="nav-links">
+                <a th:href="@{/}">Home</a>
+                <span sec:authorize="hasRole('ADMIN')">
+                    <a th:href="@{/admin}">Dashboard</a>
+                    <a th:href="@{/admin/books}">Manage Books</a>
+                    <a th:href="@{/admin/orders}">Manage Orders</a>
+                </span>
+                <span sec:authorize="isAuthenticated()">
+                    <span style="margin-left: 1rem; color: #94a3b8;">Hello, <span sec:authentication="name">User</span></span>
+                    <a th:href="@{/logout}">Logout</a>
+                </span>
+                <span sec:authorize="!isAuthenticated()">
+                    <a th:href="@{/login}">Login</a>
+                    <a th:href="@{/register}" class="btn btn-primary" style="margin-left: 1rem;">Sign Up</a>
+                </span>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+        <div th:replace="${content}"></div>
+    </div>
+
+    <footer style="text-align: center; padding: 2rem; color: #64748b;">
+        <p>&copy; 2024 BookStore AI. All rights reserved.</p>
+    </footer>
+</body>
+</html>
